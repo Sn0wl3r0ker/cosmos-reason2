@@ -220,6 +220,45 @@ To list available arguments:
 cosmos-reason2-inference online --help
 ```
 
+### Video Overlay Pipeline
+
+The repository also includes an offline two-pass video overlay pipeline that binds each inference result to the sampled frame metadata used at submission time.
+
+Example workflow with mock inference:
+
+```shell
+cosmos-reason2-video-overlay sample \
+  --input reason2_test_cut.mp4 \
+  --infer-fps 2 \
+  --sampled-dir data/video_overlay/sampled_frames \
+  --metadata-out data/video_overlay/results/sampled_metadata.json
+
+cosmos-reason2-video-overlay infer \
+  --metadata data/video_overlay/results/sampled_metadata.json \
+  --backend mock \
+  --results-out data/video_overlay/results/inference_results.json \
+  --debug-dir data/video_overlay/debug_frames \
+  --prompt-file prompts/caption.yaml
+
+cosmos-reason2-video-overlay overlay \
+  --input reason2_test_cut.mp4 \
+  --results data/video_overlay/results/inference_results.json \
+  --segments-out data/video_overlay/results/overlay_segments.json \
+  --output data/video_overlay/output/overlay.mp4
+```
+
+Single-command run:
+
+```shell
+cosmos-reason2-video-overlay all \
+  --input reason2_test_cut.mp4 \
+  --infer-fps 2 \
+  --backend mock \
+  --output data/video_overlay/output/overlay.mp4
+```
+
+Default settings are available in [`configs/video_overlay_config.yaml`](configs/video_overlay_config.yaml). Use `--config` with any subcommand to override CLI defaults from YAML.
+
 #### Offline Inference
 
 Temporally caption a video and save the input frames to `outputs/temporal_localization` for debugging ([sample output](assets/outputs/temporal_localization.log)):

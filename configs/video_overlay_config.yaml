@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+input: data/input/input.mp4
+infer_fps: 2.0
+prompt: |
+  AMR perception task.
+  Describe visible objects in the forward scene.
+  Output concise structured text.
+  No extra explanation.
+sampled_dir: cosmos_reason2_utils/cosmos_reason2_utils/video_overlay/sampled_frames
+debug_dir: cosmos_reason2_utils/cosmos_reason2_utils/video_overlay/debug_frames
+metadata_out: cosmos_reason2_utils/cosmos_reason2_utils/video_overlay/results/sampled_metadata.json
+results_out: cosmos_reason2_utils/cosmos_reason2_utils/video_overlay/results/inference_results.json
+segments_out: cosmos_reason2_utils/cosmos_reason2_utils/video_overlay/results/overlay_segments.json
+output: cosmos_reason2_utils/cosmos_reason2_utils/video_overlay/output/overlay.mp4
+backend: mock
+system_prompt: You are a helpful assistant.
+model: nvidia/Cosmos-Reason2-2B
+host: localhost
+port: 8000
+max_model_len: 16384
+max_tokens: 1024
+font_scale: 0.7
+line_spacing: 28
+margin_x: 20
+margin_y: 30
+max_width_ratio: 0.45
+box_alpha: 0.65
+thickness: 1

@@ -249,3 +249,9 @@ onelogger.log
 
 # Core dumps
 core.*
+reason2_test_cut.mp4
+reason2_test_cut2.mp4
+
+sampled_frames/
+debug_frames/
+output/
